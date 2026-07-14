@@ -11,7 +11,7 @@ npm install @robert.tools/convert
 ## Usage
 
 ```typescript
-import { sample } from '@robert.tools/convert';
+import { convert } from '@robert.tools/convert';
 
-sample('hello'); // 'sample: hello'
+convert('hello'); // 'convert: hello'
 ```

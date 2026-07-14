@@ -1,11 +1,11 @@
-import { sample } from './index';
+import { convert } from './index';
 
-describe('@robert.tools/sample', () => {
-    it('should return a sample string', () => {
-        expect(sample('hello')).toBe('sample: hello');
+describe('@robert.tools/convert', () => {
+    it('should return a convert string', () => {
+        expect(convert('hello')).toBe('convert: hello');
     });
 
-    it('should return a sample string with empty input', () => {
-        expect(sample('')).toBe('sample: ');
+    it('should return a convert string with empty input', () => {
+        expect(convert('')).toBe('convert: ');
     });
 });
