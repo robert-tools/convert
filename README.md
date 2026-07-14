@@ -1,17 +1,17 @@
-# @robert.tools/sample
+# @robert.tools/convert
 
-A sample package for robert.tools.
+A conversion package for robert.tools.
 
 ## Installation
 
 ```bash
-npm install @robert.tools/sample
+npm install @robert.tools/convert
 ```
 
 ## Usage
 
 ```typescript
-import { sample } from '@robert.tools/sample';
+import { sample } from '@robert.tools/convert';
 
 sample('hello'); // 'sample: hello'
 ```
