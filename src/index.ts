@@ -1,3 +1,3 @@
-export function sample(value: string): string {
-    return `sample: ${value}`;
+export function convert(value: string): string {
+    return `convert: ${value}`;
 }
