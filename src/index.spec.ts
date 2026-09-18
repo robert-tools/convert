@@ -1,6 +1,8 @@
 import {
     absoluteUrl,
     cleanSpaces,
+    convert2HeaderCase,
+    convert2KebapCase,
     convert2KeyValue,
     convertKey2CamelCase,
     convertNumber2String,
@@ -106,6 +108,31 @@ describe('✅ convertKey2CamelCase()', () => {
         expect(FN('Content-Type')).toEqual('contentType');
         expect(FN('content-type')).toEqual('contentType');
         expect(FN('X-Frame-Options')).toEqual('xFrameOptions');
+    });
+});
+describe('✅ convert2KebapCase()', () => {
+    const FN = convert2KebapCase;
+    it('should convert camelCase to kebap case', () => {
+        expect(FN('camelCase')).toBe('camel-case');
+        expect(FN('camel_case')).toBe('camel-case');
+        expect(FN('camelCaseMore')).toBe('camel-case-more');
+        expect(FN('lowercase')).toBe('lowercase');
+        expect(FN('ETag')).toBe('e-tag');
+        expect(FN('Etag')).toBe('etag');
+        // expect(FN('PascalCase')).toBe('Pascal-Case');
+    });
+});
+describe('✅ convert2HeaderCase()', () => {
+    const FN = convert2HeaderCase;
+    it('should convert camelCase to header case', () => {
+        expect(FN('camelCase')).toBe('Camel-Case');
+        expect(FN('camel_case')).toBe('Camel-Case');
+        expect(FN('camelCaseMore')).toBe('Camel-Case-More');
+        expect(FN('lowercase')).toBe('Lowercase');
+        expect(FN('ETag')).toBe('E-Tag');
+        expect(FN('Strict-Transport-Sec')).toBe('Strict-Transport-Sec');
+        expect(FN('Etag')).toBe('Etag');
+        // expect(FN('PascalCase')).toBe('Pascal-Case');
     });
 });
 describe('✅ normalizeText()', () => {

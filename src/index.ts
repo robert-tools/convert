@@ -55,6 +55,33 @@ export const convertKey2CamelCase = (key: string): string => {
     }
     return newKey;
 };
+/**
+ * 🎯 converts a key to kebap case
+ * @param {string} key ➡️ The header key.
+ * @returns {string} 📤 The kebap cased key.
+ */
+export const convert2KebapCase = (key: string): string => {
+    const result = key
+        .replace(/([A-Z])/g, (str) => '-' + str.toLowerCase()) // uppercase => -lowercase
+        .replace(/^-/, '') // remove leading dash if present
+        .replace(/_/g, '-') // underscores => dashes
+        .replace(/^./, (str) => str.toLowerCase());
+    return result;
+};
+/**
+ * 🎯 converts a key to header case
+ * @param {string} key ➡️ The header key.
+ * @returns {string} 📤 The header cased key.
+ */
+export const convert2HeaderCase = (key: string): string => {
+    const result = key
+        .replace(/([A-Z])/g, (str) => '-' + str.toUpperCase()) // uppercase => -lowercase
+        .replace(/^-/, '') // remove leading dash if present
+        .replace(/_([a-z])/g, (str) => '-' + str[1].toUpperCase()) // underscores => dashes
+        .replace(/--+/g, '-') // replace multiple dashes with a single dash
+        .replace(/^./, (str) => str.toUpperCase());
+    return result;
+};
 
 export const normalizeText = (value: string) => {
     return String(value || '')
