@@ -14,7 +14,7 @@ body:
         - label: "test features"
         - label: "add missing JSDoc"
         - label: "update README"
-        - label: "update ADRs" (docs/adrs/)
+        - label: "update ADRs"
         - label: "update CHANGELOG"
         - label: "update version"
 
