@@ -59,5 +59,8 @@
         "jest-environment-jsdom": "^29.6.2",
         "ts-jest": "^29.4.0",
         "typescript": "^5.9.0"
+    },
+    "dependencies": {
+        "@robert.tools/typings": "^1.0.4"
     }
 }

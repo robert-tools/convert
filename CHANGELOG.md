@@ -10,7 +10,8 @@ Add new APIs
 - add @robert.tools/setup and reference tasks
 
 ### 🗃️ API changes
-- add convert2HeaderCase
-- add convert2KebapCase
+- add `convert2HeaderCase`
+- add `convert2KebapCase`
+- rename `convertKey2CamelCase` to `convert2CamelCase`
 
 ## 1.0.0

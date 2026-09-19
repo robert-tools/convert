@@ -1,4 +1,4 @@
-import type { KEY_VALUE } from './index.d';
+import type { URI, $URI, $string, KEY_VALUE } from '@robert.tools/typings';
 
 /**
  * 🎯 convert the number to a string
@@ -13,12 +13,12 @@ export const convertNumber2String = (value: number): string => {
  * 🎯 Splits a line into a key and value based on the first occurrence of either
  * a colon or space.
  * @todo stabilize more the content for spaces/newlines
- * @param {string} line ➡️ The line to split.
+ * @param {string} input ➡️ The line to split.
  * @returns {object} 📤 An object containing the key and value.
  */
-export const convert2KeyValue = (line: string): KEY_VALUE => {
-    const matchesColon = line.match(/^([^\s]+)\:\s(.*)/); // KEY: value
-    const matchesSpace = line.match(/^([^\s]+)\s(.*)/); // KEY value
+export const convert2KeyValue = (input: string): KEY_VALUE => {
+    const matchesColon = input.match(/^([^\s]+)\:\s(.*)/); // KEY: value
+    const matchesSpace = input.match(/^([^\s]+)\s(.*)/); // KEY value
     let key = '';
     let value = '';
     if (matchesColon && matchesColon[2]) {
@@ -36,11 +36,11 @@ export const convert2KeyValue = (line: string): KEY_VALUE => {
 
 /**
  * 🎯 transform a key to camelCase
- * @param {string} key ➡️ The key to transform.
+ * @param {string} input ➡️ The key to transform.
  * @returns {string} 📤 The transformed key in camelCase.
  */
-export const convertKey2CamelCase = (key: string): string => {
-    let newKey = key.toLowerCase().trim();
+export const convert2CamelCase = (input: string): string => {
+    let newKey = input.toLowerCase().trim();
     if (newKey.indexOf('-') !== -1) {
         const parts = newKey.split('-');
         let finalKey = '';
@@ -57,11 +57,11 @@ export const convertKey2CamelCase = (key: string): string => {
 };
 /**
  * 🎯 converts a key to kebap case
- * @param {string} key ➡️ The header key.
+ * @param {string} input ➡️ The header key.
  * @returns {string} 📤 The kebap cased key.
  */
-export const convert2KebapCase = (key: string): string => {
-    const result = key
+export const convert2KebapCase = (input: string): string => {
+    const result = input
         .replace(/([A-Z])/g, (str) => '-' + str.toLowerCase()) // uppercase => -lowercase
         .replace(/^-/, '') // remove leading dash if present
         .replace(/_/g, '-') // underscores => dashes
@@ -70,11 +70,11 @@ export const convert2KebapCase = (key: string): string => {
 };
 /**
  * 🎯 converts a key to header case
- * @param {string} key ➡️ The header key.
+ * @param {string} input ➡️ The header key.
  * @returns {string} 📤 The header cased key.
  */
-export const convert2HeaderCase = (key: string): string => {
-    const result = key
+export const convert2HeaderCase = (input: string): string => {
+    const result = input
         .replace(/([A-Z])/g, (str) => '-' + str.toUpperCase()) // uppercase => -lowercase
         .replace(/^-/, '') // remove leading dash if present
         .replace(/_([a-z])/g, (str) => '-' + str[1].toUpperCase()) // underscores => dashes
@@ -83,8 +83,13 @@ export const convert2HeaderCase = (key: string): string => {
     return result;
 };
 
-export const normalizeText = (value: string) => {
-    return String(value || '')
+/**
+ * 🎯 normalizes a text by removing diacritics and special characters
+ * @param input ➡️ unnormalized text
+ * @returns {string} 📤 normalized text
+ */
+export const normalizeText = (input: string): string => {
+    return String(input || '')
         .normalize('NFKD')
         .replace(/[\u0300-\u036f]/g, '')
         .replace(
@@ -103,14 +108,22 @@ export const normalizeText = (value: string) => {
         .toLowerCase();
 };
 
-export const cleanSpaces = (text: string): string => {
-    return text.replace(/\s+/g, ' ').trim();
+/**
+ * 🎯 cleans up extra spaces in a text. Reducing: '   ' to ' '
+ * @param input ➡️ text with spaces
+ * @returns {string} 📤 trimmed text
+ */
+export const cleanSpaces = (input: string): string => {
+    return input.replace(/\s+/g, ' ').trim();
 };
 
-export const absoluteUrl = (
-    value: string | undefined,
-    baseUrl: string
-): string | undefined => {
+/**
+ * 🎯 resolves a relative or absolute URL to an absolute URL
+ * @param {$string} value ➡️ The relative or absolute URL.
+ * @param {string} baseUrl ➡️ The base URL to resolve against.
+ * @returns {string | undefined} 📤 The resolved absolute URL or undefined if invalid.
+ */
+export const absoluteUrl = (value: $URI, baseUrl: URI): $string => {
     if (!value) return undefined;
 
     try {

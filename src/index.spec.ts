@@ -4,7 +4,7 @@ import {
     convert2HeaderCase,
     convert2KebapCase,
     convert2KeyValue,
-    convertKey2CamelCase,
+    convert2CamelCase,
     convertNumber2String,
     normalizeText,
 } from './index';
@@ -99,8 +99,8 @@ describe('🚧 convertLine2KeyValue()', () => {
         });
     });
 });
-describe('✅ convertKey2CamelCase()', () => {
-    const FN = convertKey2CamelCase;
+describe('✅ convert2CamelCase()', () => {
+    const FN = convert2CamelCase;
     it('should transform key', () => {
         expect(FN('HTTP/1.1')).toEqual('http/1.1');
         expect(FN('Location')).toEqual('location');
@@ -165,15 +165,20 @@ describe('✅ cleanSpaces()', () => {
         expect(FN(' x  y ')).toEqual('x y');
     });
 });
-describe('absoluteUrl()', () => {
+describe('✅ absoluteUrl()', () => {
     const FN = absoluteUrl;
-    const base = 'https://example.com';
+    const DOMAIN = 'example.com';
+    const URL = `https://${DOMAIN}`;
     it('should return absolute url', () => {
-        expect(FN('/path', base)).toEqual(`${base}/path`);
-        expect(FN('path', base)).toEqual(`${base}/path`);
-        expect(FN(`${base}/path`, base)).toEqual(`${base}/path`);
-        expect(FN('http://example.com/path', base)).toEqual(
-            'http://example.com/path'
-        );
+        expect(FN('/path', URL)).toEqual(`${URL}/path`);
+        expect(FN('path', URL)).toEqual(`${URL}/path`);
+        expect(FN(`${URL}/path`, URL)).toEqual(`${URL}/path`);
+        expect(FN(`http://${DOMAIN}/x`, URL)).toEqual(`http://${DOMAIN}/x`);
+    });
+    it('should return undefined for invalid URLs', () => {
+        expect(FN('', URL)).toEqual(undefined);
+        expect(FN(undefined, URL)).toEqual(undefined);
+        expect(FN(null, URL)).toEqual(undefined);
+        expect(FN('test', 'test')).toEqual(undefined);
     });
 });
